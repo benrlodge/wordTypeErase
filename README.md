@@ -14,6 +14,14 @@ Demo to come...
 
 ```html
 
+<style>
+.highlight {
+  background: rgba(247, 118, 31, 0.95);
+}
+</style>
+
+<p class='words mywords' data-type-words="One phrase, another, then some more, that's all">This will be replaced by the first phrase</h4>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src='wordTypeErase.js'></script>
 <script>
