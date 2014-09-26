@@ -41,9 +41,7 @@ Demo to come...
     highlightSpeed: 22,       // 
     delayOfWords: 1400,        // delay between words being typed
     destination: this,         // optional destination for text
-    hideCursorEnd: true,       // hide the blinking cursor after the last word
     naturalTypingSpeed: true,  // randomizes the delay between letters to simulate a more natural typing
-    cursor: true               // show/hide blinking cursor
   }, options);
 
 ```
