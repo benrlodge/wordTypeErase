@@ -3,6 +3,10 @@
 // by Ben Lodge
 // ===================
 
+'use strict';
+/*global $:false */
+
+
 
 $.fn.wordTypeErase = function(options) {
 
@@ -53,7 +57,7 @@ $.fn.wordTypeErase = function(options) {
   // Here we type out each individual word, one letter at a time
   var wordType = function(word, iteration, iterations, randArr){
 
-    var wordLength = word.length    
+    var wordLength = word.length;
     var i = 0;
     var l = wordLength;
     
@@ -77,9 +81,9 @@ $.fn.wordTypeErase = function(options) {
             if(iteration === iterations){
               return false;
             }  
-            highlight(wordLength, iteration, iterations)
+            highlight(wordLength, iteration, iterations);
 
-          }, 1300)
+          }, 1300);
         }
 
         // // Hide or show cursor after last word
@@ -89,7 +93,7 @@ $.fn.wordTypeErase = function(options) {
 
     })();
 
-  }
+  };
 
 
   // Here we get the the length of each word (number of letters)
@@ -119,9 +123,9 @@ $.fn.wordTypeErase = function(options) {
         // create random speeds for letters
         randArr = [];
         var randSum = 0;
-        for(g = 0; g < word.length; g++){
-
-          var rand = Math.floor( Math.random() * 40 )
+        
+        for(var g = 0; g < word.length; g++){
+          var rand = Math.floor( Math.random() * 40 );
           var randType =  Math.round(Math.random());
 
           if(randType){ 
@@ -152,18 +156,18 @@ $.fn.wordTypeErase = function(options) {
         }
     })();
  
-  }
+  };
 
 
   // Turn first word in html as spans needed for highlight
   var firstWordSpanIze = function(firstWord){
   
     var firstWordSpanned = '';
-    for(i = 0; i<firstWord.length; i++){
+    for(var i = 0; i<firstWord.length; i++){
       firstWordSpanned += "<span data-pos='"+i+"'>"+firstWord[i]+"</span>";
     }
     return firstWordSpanned;
-  }
+  };
 
 
   // Kick off data attribute words
@@ -171,8 +175,8 @@ $.fn.wordTypeErase = function(options) {
     setTimeout(function(){
       $(settings.destination).empty();
       wordTypePrep(words);
-      }, 800)
-  }
+      }, 800);
+  };
 
 
 
@@ -190,8 +194,9 @@ $.fn.wordTypeErase = function(options) {
     
     // Highlight first word
     setTimeout(function(){
-      highlight(firstWordLength)
-    }, settings.delayOfStart)
+      highlight(firstWordLength);
+    }, settings.delayOfStart);
+
     
     
 
