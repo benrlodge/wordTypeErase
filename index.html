@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WordTypeErase - Benrlodge.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+/* Demo style */
+.highlight{
+  background: #63D1F4;
+}
+pre{
+  background: #dadada;
+  padding: 10px;
+}
+.words{
+  font-size: 28px;
+}
+
+/*
+  Plugin Styles
+*/
+
+/* Highlighting color */
+.highlight {
+  background: rgba(247, 118, 31, 0.95);
+}
+
+
+
+
+</style>
+
+</head>
+   
+
+<body>
+
+<h1>WordTypeErase</h1>
+<h3>A little JavaScript jQuery text animation plugin. <a href="http://www.wtfpl.net/">WTFPL licence</a> </h3>
+<p> By Ben Lodge. See more of my stuff on <a href="https://github.com/benrlodge/">github</a>, or <a href="http://www.benrlodge.com">my website.</a> </p>
+<hr>
+<p class='words mywords' data-type-words="I type out words, then I highlight them, then I erase them, It's as if we were from the same plugin!?, The end, Yea that's it.">Watch me...</h4>
+
+<p class='words myOtherwords' data-type-words="Wow so do I!, no kidding me too!, me too! Sames-ees!, Oh man! That's what I was thinking!, ... or is it?!?, oh..., okay., ...., bye">Watch me too...</p>
+
+<hr>
+<h2>How it works</h2>
+<p>The plugin takes in the words or phrases you want to type out in a data attribute, then loops through each word, splitting up the word into individual characters with a span tag which is used to add a higlight class when it is highlighted.</p>
+
+<p>Right now it likely only works with one 
+
+
+
+<a href="https://github.com/benrlodge/wordTypeErase">Check out the Github readme for all the options</a>
+
+
+
+
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-38053205-1');ga('send','pageview');
+</script>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src='wordTypeErase.js'></script>
+
+<script>
+    $('.mywords').wordTypeErase({
+      delayOfStart: 1400,
+      letterSpeed: 60
+    }); 
+    $('.myOtherwords').wordTypeErase({
+      delayOfStart: 3600,
+      letterSpeed: 60
+    }); 
+
+</script>
+
+</body>
+</html>
