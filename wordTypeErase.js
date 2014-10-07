@@ -7,7 +7,6 @@
 /*global $:false */
 
 
-
 $.fn.wordTypeErase = function(options) {
 
   var settings = $.extend({
@@ -17,11 +16,6 @@ $.fn.wordTypeErase = function(options) {
     delayOfWords: 1400,        // delay between words being typed
     destination: this,         // optional destination for text
     naturalTypingSpeed: true,  // randomizes the delay between letters to simulate a more natural typing
-    
-    // in development:
-    // hideCursorEnd: true,       // hide the blinking cursor after the last word
-    // cursor: false               // show/hide blinking cursor ... still working on this
-
   }, options);
 
   var firstHighlight = true;
@@ -65,11 +59,6 @@ $.fn.wordTypeErase = function(options) {
         var letter = word[i];
         $(settings.destination).append("<span data-pos='"+i+"'>"+letter+"</span>");
 
-        // // start blinking cursor
-        // if((settings.cursor) && (i == l - 1)){
-        //   $('.cursor').removeClass('noblink');
-        // }
-
         // Loop through letters typing out
         if(++i < l) {
             setTimeout(iterator, randArr[i]);
@@ -85,11 +74,6 @@ $.fn.wordTypeErase = function(options) {
 
           }, 1300);
         }
-
-        // // Hide or show cursor after last word
-        // if((settings.cursor) && (settings.hideCursorEnd) && (iteration === iterations)){
-        //   $('.cursor').hide();
-        // }
 
     })();
 
@@ -148,10 +132,7 @@ $.fn.wordTypeErase = function(options) {
           
           // delay new words by how long it will take to type out and remove words
           setTimeout(iterator, delay + settings.delayOfWords);  // --> delay isn't right... too long for long phrases
-          
-          // if(settings.cursor){
-          //   $('.cursor').addClass('noblink');  
-          // }
+
         
         }
     })();
@@ -182,7 +163,6 @@ $.fn.wordTypeErase = function(options) {
 
   // plugin return
   return this.each(function() {
-
     var scope = this;
     words = $(this).data('type-words').split(',');  // all words to type
     var firstWord = ($(scope).text()).split(''); // first word to remove
