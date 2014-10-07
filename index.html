@@ -4,56 +4,69 @@
 <head>
   <title>WordTypeErase - Benrlodge.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:800italic,400' rel='stylesheet' type='text/css'>
 
 <style>
+body{
+  background: #000 url('https://s3-us-west-2.amazonaws.com/benrlodge/misc/water-bg.jpg');
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+}
+.container{
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+h1{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 60px;
+  font-style: italic;
+}
+
 /* Demo style */
-body{ padding: 30px; max-width: 800px; margin: 0 auto; }
-pre{ background: #dadada; padding: 10px;}
-.words{ font-size: 28px; }
+.highlight{
+  background: #63D1F4;
+}
+pre{
+  background: #dadada;
+  padding: 10px;
+}
+.words{
+  font-size: 28px;
+}
+
+/*
+  Plugin Styles
+*/
 
 /* Highlighting color */
-.highlight { background: rgba(247, 118, 31, 0.95); }
-</style>
+.highlight {
+  background: rgba(247, 118, 31, 0.95);
+}
 
-<script type="text/javascript">var switchTo5x=true;</script>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher: "35f07b4c-c7b4-4676-b1b5-1c1495216bff", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+
+
+</style>
 
 </head>
    
 
 <body>
 
-<h1>WordTypeErase</h1>
-<h3>A little JavaScript jQuery text animation plugin. <a href="http://www.wtfpl.net/">WTFPL licence</a> </
-h3>
-
-<p> By Ben Lodge. See more of my stuff on <a href="https://github.com/benrlodge/">github</a>, or <a href="http://www.benrlodge.com">my website.</a> </p>
-<p>
-<p>
-      <span class='st_sharethis' displayText='ShareThis'></span>
-      <span class='st_facebook' displayText='Facebook'></span>
-      <span class='st_twitter' displayText='Tweet'></span>
-      <span class='st_linkedin' displayText='LinkedIn'></span>
-      <span class='st_pinterest' displayText='Pinterest'></span>
-      <span class='st_email' displayText='Email'></span>
-  </p>
+<div class='container'>
+  <h1>WordTypeErase.js</h1>
+  <h3>A jQuery text animation plugin - <a href="http://www.benrlodge.com">By Ben Lodge.</a>   </h3>
   
-<a href="https://github.com/benrlodge/wordTypeErase">Fork on Github and checkout the readme for documentation</a></p>
+  <p><a href="https://github.com/benrlodge/wordTypeErase">See the documentation on Github</a></p>
 
+  <p class='words mywords' data-type-words="I type out words, then I highlight them, then I erase them, It's as if we were from the same plugin!?, The end, Yea that's it.">Watch me...</h4>
 
-<hr>
-<p class='words mywords' data-type-words="I type out words, then I highlight them, then I erase them, It's as if we were from the same plugin!?, The end, Yea that's it.">Watch me...</h4>
+  <p class='words myOtherwords' data-type-words="Wow so do I!, no kidding me too!, me too! Sames-ees!, Oh man! That's what I was thinking!, ... or is it?!?, oh..., okay., bye.">Watch me too...</p>
 
-<p class='words myOtherwords' data-type-words="Wow so do I!, no kidding me too!, me too! Sames-ees!, Oh man! That's what I was thinking!, ... or is it?!?, oh..., okay., ...., bye.">Watch me too...</p>
-
-<hr>
-<h2>How it works</h2>
-<p>The plugin takes in the words or phrases you want to type out in a data attribute, then loops through each word, splitting up the word into individual characters with a span tag which is used to add a higlight class when it is highlighted.</p>
-
-<p>The plugin will replace the string of text between whatever tags you use (p tags in my case), but you don't need to start with one if you don't want to.</p>
-
-
+  
+</div>
 
 
 <script>
@@ -75,7 +88,7 @@ h3>
       letterSpeed: 60
     }); 
     $('.myOtherwords').wordTypeErase({
-      delayOfStart: 3600,
+      delayOfStart: 3700,
       letterSpeed: 60
     }); 
 
