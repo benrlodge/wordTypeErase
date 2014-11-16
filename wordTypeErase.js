@@ -12,14 +12,17 @@ $.fn.wordTypeErase = function(options) {
   var settings = $.extend({
     delayOfStart: 1200,        // delay before typing begins
     letterSpeed: 125,          // delay between letters typed
-    highlightSpeed: 22,       // 
+    highlightSpeed: 22,        // 
     delayOfWords: 1400,        // delay between words being typed
     destination: this,         // optional destination for text
     naturalTypingSpeed: true,  // randomizes the delay between letters to simulate a more natural typing
+    loop: false,               // whether the animation should be restarted at the end
+    delayBetweenLoop: 1200,    // delay between loop
   }, options);
 
   var firstHighlight = true;
   var words = '';
+  var firstWord = '';
 
 
   // The reverse highlighting of each letter
@@ -135,6 +138,16 @@ $.fn.wordTypeErase = function(options) {
 
         
         }
+        // Loop
+        if (i == l && settings.loop) {
+          setTimeout(function() {
+            if (words[0] != firstWord) {
+              words.unshift(firstWord);
+            }
+            firstHighlight = true;
+            highlight(words[words.length-1].length);
+          }, delay + settings.delayBetweenLoop);
+        }
     })();
  
   };
@@ -165,7 +178,7 @@ $.fn.wordTypeErase = function(options) {
   return this.each(function() {
     var scope = this;
     words = $(this).data('type-words').split(',');  // all words to type
-    var firstWord = ($(scope).text()).split(''); // first word to remove
+    firstWord = ($(scope).text()); // first word to remove
     var firstWordLength = firstWord.length;
     
     // Turn first word in html as spans needed for highlight
@@ -177,8 +190,6 @@ $.fn.wordTypeErase = function(options) {
       highlight(firstWordLength);
     }, settings.delayOfStart);
 
-    
-    
 
   });
 

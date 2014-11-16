@@ -39,10 +39,12 @@ This is a little text animation plugin that will type out a series of words one 
   var settings = $.extend({
     delayOfStart: 1200,        // delay before typing begins
     letterSpeed: 125,          // delay between letters typed
-    highlightSpeed: 22,       // 
+    highlightSpeed: 22,        // 
     delayOfWords: 1400,        // delay between words being typed
     destination: this,         // optional destination for text
     naturalTypingSpeed: true,  // randomizes the delay between letters to simulate a more natural typing
+    loop: false,               // whether the animation should be restarted at the end
+    delayBetweenLoop: 1200,    // delay between loop
   }, options);
 
 ```
