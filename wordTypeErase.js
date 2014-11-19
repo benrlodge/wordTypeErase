@@ -132,12 +132,13 @@ $.fn.wordTypeErase = function(options) {
 
         //loop until all words are typed
         if(++i < l) {
-          
-          // delay new words by how long it will take to type out and remove words
-          setTimeout(iterator, delay + settings.delayOfWords);  // --> delay isn't right... too long for long phrases
-
-        
+          // Set timeout for new words by how long it will take to type out and remove words
+          // Note - There is an issue here - the delay is tied to the length of the
+          // phrase - so very long phrases have very long delays but I'd rather they not.
+          // If anyone has a solution I'm open for pull requests or recommendations on Github issues
+          setTimeout(iterator, delay + settings.delayOfWords);
         }
+
         // Loop
         if (i == l && settings.loop) {
           setTimeout(function() {
