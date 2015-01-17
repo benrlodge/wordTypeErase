@@ -1,10 +1,10 @@
 // ===================
 // wordTypeErase.js
 // by Ben Lodge
+// github.com/benrlodge
 // ===================
 
 'use strict';
-/*global $:false */
 
 
 $.fn.wordTypeErase = function(options) {
@@ -23,6 +23,24 @@ $.fn.wordTypeErase = function(options) {
   var firstHighlight = true;
   var words = '';
   var firstWord = '';
+  var lastWord = '';
+
+
+  // Clear timeouts if someone navigates 
+  // away opening a new browser tab
+  var timeouts = [];
+
+  // Use tab change function to determine
+  // when someone navigates away, and if so
+  // clear the timeouts
+  TabChange(function(){
+    for (var i = 0; i < timeouts.length; i++){
+      clearTimeout(timeouts[i]);
+    }
+    console.log('Restart timers')
+    // When visitor returns, set word to last in the list
+    $(settings.destination).html(lastWord);
+  })
 
 
   // The reverse highlighting of each letter
@@ -37,7 +55,7 @@ $.fn.wordTypeErase = function(options) {
 
       // Loop through letters adding highlight class
       if(i++ < wordLength) {
-          setTimeout(iterator, settings.highlightSpeed);
+          timeouts.push(setTimeout(iterator, settings.highlightSpeed));
       }
       if(i == wordLength && firstHighlight){
         firstHighlight = false;
@@ -48,7 +66,6 @@ $.fn.wordTypeErase = function(options) {
     })();
 
   };
-
 
 
   // Here we type out each individual word, one letter at a time
@@ -64,18 +81,20 @@ $.fn.wordTypeErase = function(options) {
 
         // Loop through letters typing out
         if(++i < l) {
-            setTimeout(iterator, randArr[i]);
+            timeouts.push(setTimeout(iterator, randArr[i]));
         }
 
         // After all letters are typed out, delay a bit, then highlight them
         if(i == l){
-          setTimeout(function(){
+          
+          timeouts.push(setTimeout(function(){
             if(iteration === iterations){
               return false;
             }  
             highlight(wordLength, iteration, iterations);
 
-          }, 1300);
+          }, 1300));
+
         }
 
     })();
@@ -136,18 +155,18 @@ $.fn.wordTypeErase = function(options) {
           // Note - There is an issue here - the delay is tied to the length of the
           // phrase - so very long phrases have very long delays but I'd rather they not.
           // If anyone has a solution I'm open for pull requests or recommendations on Github issues
-          setTimeout(iterator, delay + settings.delayOfWords);
+          timeouts.push(setTimeout(iterator, delay + settings.delayOfWords));
         }
 
         // Loop
         if (i == l && settings.loop) {
-          setTimeout(function() {
+          timeouts.push(setTimeout(function() {
             if (words[0] != firstWord) {
               words.unshift(firstWord);
             }
             firstHighlight = true;
             highlight(words[words.length-1].length);
-          }, delay + settings.delayBetweenLoop);
+          }, delay + settings.delayBetweenLoop));
         }
     })();
  
@@ -167,10 +186,10 @@ $.fn.wordTypeErase = function(options) {
 
   // Kick off data attribute words
   var getOnWithTheWords = function(){
-    setTimeout(function(){
+    timeouts.push(setTimeout(function(){
       $(settings.destination).empty();
       wordTypePrep(words);
-      }, 800);
+      }, 800));
   };
 
 
@@ -178,8 +197,13 @@ $.fn.wordTypeErase = function(options) {
   // plugin return
   return this.each(function() {
     var scope = this;
-    words = $(this).data('type-words').split(',');  // all words to type
-    firstWord = ($(scope).text()); // first word to remove
+    
+    // Get comma separated word list from data attribute.
+    words = $(this).data('type-words').split(',');
+    
+    // Set first and last words
+    firstWord = ($(scope).text());
+    lastWord = (words[words.length-1]).trim()
     var firstWordLength = firstWord.length;
     
     // Turn first word in html as spans needed for highlight
@@ -187,14 +211,87 @@ $.fn.wordTypeErase = function(options) {
     $(this).html(fwSpan);
     
     // Highlight first word
-    setTimeout(function(){
+    timeouts.push(setTimeout(function(){
       highlight(firstWordLength);
-    }, settings.delayOfStart);
-
+    }, settings.delayOfStart));
 
   });
 
 
-
-
 };
+
+
+
+
+
+
+function TabChange(callback){
+
+  // Get Browser Prefix
+  var prefix = getBrowserPrefix();
+  var hidden = hiddenProperty(prefix);
+  var visibilityState = visibilityState(prefix);
+  var visibilityEvent = visibilityEvent(prefix);
+   
+  
+  // Get Browser-Specifc Prefix
+  function getBrowserPrefix() {
+     
+    // Check for the unprefixed property.
+    if ('hidden' in document) {
+      return null;
+    }
+   
+    // All the possible prefixes.
+    var browserPrefixes = ['moz', 'ms', 'o', 'webkit'];
+   
+    for (var i = 0; i < browserPrefixes.length; i++) {
+      var prefix = browserPrefixes[i] + 'Hidden';
+      if (prefix in document) {
+        return browserPrefixes[i];
+      }
+    }
+   
+    // The API is not supported in browser.
+    return null;
+  }
+   
+  // Get Browser Specific Hidden Property
+  function hiddenProperty(prefix) {
+    if (prefix) {
+      return prefix + 'Hidden';
+    } else {
+      return 'hidden';
+    }
+  }
+   
+  // Get Browser Specific Visibility State
+  function visibilityState(prefix) {
+    if (prefix) {
+      return prefix + 'VisibilityState';
+    } else {
+      return 'visibilityState';
+    }
+  }
+   
+  // Get Browser Specific Event
+  function visibilityEvent(prefix) {
+    if (prefix) {
+      return prefix + 'visibilitychange';
+    } else {
+      return 'visibilitychange';
+    }
+  }
+
+  // Visibility Change 
+  document.addEventListener(visibilityEvent, function(event) {
+
+    if (document[hidden]) {      
+      if (callback && typeof(callback == 'function')){
+        callback();
+      }
+    } 
+  });
+   
+
+}
